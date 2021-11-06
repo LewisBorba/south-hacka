@@ -1,6 +1,7 @@
 package com.south.health.domain.user.model;
 
 
+import com.south.health.domain.medic.controller.request.MedicRequest;
 import com.south.health.domain.patient.controller.request.PatientRequest;
 
 import javax.persistence.*;
@@ -48,6 +49,11 @@ public class User {
     public static User of(PatientRequest patientRequest){
         return new User(patientRequest.getUsername(), patientRequest.getEmail(), patientRequest.getPassword(), UserType.PATIENT);
     }
+
+    public static User of(MedicRequest medicRequest){
+        return new User(medicRequest.getName(), medicRequest.getEmail(), medicRequest.getPassword(), UserType.MEDIC);
+    }
+
 
     public Integer getId() {
         return id;

@@ -20,7 +20,7 @@ public class UserController {
 
 
     @PostMapping("/login")
-    @ApiOperation(value = "Login")
+    @ApiOperation(value = "Endpoint that sign in user")
     public UserResponse login(@RequestBody UserLoginRequest userLoginRequest) {
         User user = userService.login(userLoginRequest);
         return UserResponse.of(user);

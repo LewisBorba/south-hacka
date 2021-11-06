@@ -3,6 +3,8 @@ package com.south.health.domain.user.service;
 import com.south.health.domain.user.controller.request.UserLoginRequest;
 import com.south.health.domain.user.model.User;
 import com.south.health.domain.user.repository.UserRepository;
+import com.south.health.domain.user.service.exception.UserNotAuthorizedException;
+import com.south.health.domain.user.service.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

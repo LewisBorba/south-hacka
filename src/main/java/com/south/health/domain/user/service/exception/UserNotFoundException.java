@@ -1,4 +1,4 @@
-package com.south.health.domain.user.service;
+package com.south.health.domain.user.service.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
