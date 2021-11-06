@@ -1,5 +1,8 @@
 package com.south.health.domain.user.model;
 
+
+import com.south.health.domain.patient.controller.request.PatientRequest;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -22,6 +25,9 @@ public class User {
     @Column
     private String password;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private UserType type;
 
     /**
      * @deprecated (should be used only by frameworks)
@@ -30,10 +36,17 @@ public class User {
     public User() {
     }
 
-    public User(String username, String email, String password) {
+    private User(String username, String email, String password, UserType type) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.type = type;
+    }
+
+
+
+    public static User of(PatientRequest patientRequest){
+        return new User(patientRequest.getUsername(), patientRequest.getEmail(), patientRequest.getPassword(), UserType.PATIENT);
     }
 
     public Integer getId() {
@@ -60,6 +73,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public UserType getType() {
+        return type;
     }
 
     public String getPassword() {

@@ -1,5 +1,6 @@
 package com.south.health.domain.user.controller;
 
+import com.south.health.domain.user.controller.request.UserLoginRequest;
 import com.south.health.domain.user.controller.request.UserRequest;
 import com.south.health.domain.user.controller.response.UserResponse;
 import com.south.health.domain.user.model.User;
@@ -16,17 +17,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
-    @ApiOperation(value = "Get user by id")
-    public UserResponse findUserById(@PathVariable Long userId) {
-        User user = userService.findUserById(userId);
-        return UserResponse.of(user);
-    }
 
-    @PostMapping
-    @ApiOperation(value= "Create user")
-    public UserResponse save(@RequestBody UserRequest userRequest) {
-        User user = userService.save(userRequest.toUser());
+
+    @PostMapping("/login")
+    @ApiOperation(value = "Login")
+    public UserResponse login(@RequestBody UserLoginRequest userLoginRequest) {
+        User user = userService.login(userLoginRequest);
         return UserResponse.of(user);
     }
 

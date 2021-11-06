@@ -1,6 +1,7 @@
 package com.south.health.domain.user.controller.response;
 
 import com.south.health.domain.user.model.User;
+import com.south.health.domain.user.model.UserType;
 import io.swagger.annotations.ApiModelProperty;
 
 public class UserResponse {
@@ -14,14 +15,14 @@ public class UserResponse {
     @ApiModelProperty(example = "email@email.com")
     private final String email;
 
-    @ApiModelProperty(example = "T3STE!")
-    private final String password;
+
+    private final UserType type;
 
     private UserResponse(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.password = user.getPassword();
+        this.type = user.getType();
     }
 
     public static UserResponse of(User user) {
@@ -42,7 +43,7 @@ public class UserResponse {
         return email;
     }
 
-    public String getPassword() {
-        return password;
+    public UserType getType() {
+        return type;
     }
 }

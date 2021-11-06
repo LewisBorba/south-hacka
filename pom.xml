@@ -15,6 +15,8 @@
     <description>Demo project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
+        <java-jwt.version>3.10.3</java-jwt.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -43,7 +45,12 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>${java-jwt.version}</version>
 
+        </dependency>
     </dependencies>
 
     <build>

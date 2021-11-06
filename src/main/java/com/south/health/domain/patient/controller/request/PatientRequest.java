@@ -1,9 +1,8 @@
-package com.south.health.domain.user.controller.request;
+package com.south.health.domain.patient.controller.request;
 
-import com.south.health.domain.user.model.UserType;
 import io.swagger.annotations.ApiParam;
 
-public class UserRequest {
+public class PatientRequest {
 
     @ApiParam(example = "south-hacka")
     private final String username;
@@ -14,13 +13,10 @@ public class UserRequest {
     @ApiParam(example = "T3STE!")
     private final  String password;
 
-    private final UserType userType;
-
-    public UserRequest(String username, String email, String password, UserType userType) {
+    public PatientRequest(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.userType = userType;
     }
 
 

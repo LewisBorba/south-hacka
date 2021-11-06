@@ -1,5 +1,6 @@
 package com.south.health.domain.user.service;
 
+import com.south.health.domain.user.controller.request.UserLoginRequest;
 import com.south.health.domain.user.model.User;
 import com.south.health.domain.user.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,10 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User login(UserLoginRequest userLoginRequest) {
+        Optional<User> user = userRepository.findByEmailAndPassword(userLoginRequest.getEmail(), userLoginRequest.getPassword());
+        return user.orElseThrow(UserNotAuthorizedException::new);
+
+    }
 
 }
