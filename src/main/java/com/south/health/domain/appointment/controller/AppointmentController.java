@@ -67,9 +67,9 @@ public class AppointmentController {
 
     @DeleteMapping("/cancel-appointment/{appointmentId}")
     @ApiOperation("Endpoint that cancel appointment")
-    public AppointmentAcceptResponse cancelAppointment(@PathVariable Integer appointmentId) {
+    public AppointmentResponse cancelAppointment(@PathVariable Integer appointmentId) {
         Appointment appointment = appointmentService.cancelAppointment(appointmentId);
-        return AppointmentAcceptResponse.of(appointment);
+        return AppointmentResponse.of(appointment);
     }
 
 
