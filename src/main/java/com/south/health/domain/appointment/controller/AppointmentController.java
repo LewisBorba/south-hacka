@@ -30,7 +30,7 @@ public class AppointmentController {
 
     @PutMapping("/{appointmentId}")
     @ApiOperation(value = "Endpoint that accept a appointment with a patient")
-    public AppointmentAcceptResponse acceptAppointment(@RequestParam Integer appointmentId,
+    public AppointmentAcceptResponse acceptAppointment(@PathVariable Integer appointmentId,
                                                        @RequestBody AppointmentAcceptRequest appointmentAcceptRequest) {
         Appointment appointment = appointmentService.acceptAppointment(appointmentAcceptRequest, appointmentId);
         return AppointmentAcceptResponse.of(appointment);
@@ -38,14 +38,14 @@ public class AppointmentController {
 
     @GetMapping("/requested-appointments/{patientId}")
     @ApiOperation("Endpoint that gets a list of requested appointments")
-    public List<AppointmentResponse> getRequestedAppointments(@RequestParam Integer patientId) {
+    public List<AppointmentResponse> getRequestedAppointments(@PathVariable Integer patientId) {
         List<Appointment> appointment = appointmentService.getRequestedAppointments(patientId);
         return appointment.stream().map(AppointmentResponse::of).collect(Collectors.toList());
     }
 
     @GetMapping("/accepted-appointments/{patientId}")
     @ApiOperation("Endpoint that gets a list of accepted appointments")
-    public List<AppointmentAcceptResponse> getAcceptedAppointments(@RequestParam Integer patientId) {
+    public List<AppointmentAcceptResponse> getAcceptedAppointments(@PathVariable Integer patientId) {
         List<Appointment> appointment = appointmentService.getAcceptedAppointments(patientId);
         return appointment.stream().map(AppointmentAcceptResponse::of).collect(Collectors.toList());
     }
@@ -53,21 +53,21 @@ public class AppointmentController {
 
     @GetMapping("/available-appointments")
     @ApiOperation("Endpoint that gets all available appointments to accepts")
-    public List<AppointmentResponse> getAvailableAppointments(@RequestParam String type) {
+    public List<AppointmentResponse> getAvailableAppointments(@PathVariable String type) {
         List<Appointment> appointment = appointmentService.getAvailableAppointments(type);
         return appointment.stream().map(AppointmentResponse::of).collect(Collectors.toList());
     }
 
     @GetMapping("/scheduled-appointments/{medicId}")
     @ApiOperation("Endpoint that gets all scheduled appointments")
-    public List<AppointmentAcceptResponse> getScheduledAppointments(@RequestParam Integer medicId) {
+    public List<AppointmentAcceptResponse> getScheduledAppointments(@PathVariable Integer medicId) {
         List<Appointment> appointment = appointmentService.getScheduledAppointments(medicId);
         return appointment.stream().map(AppointmentAcceptResponse::of).collect(Collectors.toList());
     }
 
     @DeleteMapping("/cancel-appointment/{appointmentId}")
     @ApiOperation("Endpoint that cancel appointment")
-    public AppointmentAcceptResponse cancelAppointment(@RequestParam Integer appointmentId) {
+    public AppointmentAcceptResponse cancelAppointment(@PathVariable Integer appointmentId) {
         Appointment appointment = appointmentService.cancelAppointment(appointmentId);
         return AppointmentAcceptResponse.of(appointment);
     }
