@@ -96,4 +96,8 @@ public class Appointment {
     public String getAcceptedHour() {
         return acceptedHour;
     }
+
+    public void cancel() {
+        this.status = Status.CANCELLED;
+    }
 }

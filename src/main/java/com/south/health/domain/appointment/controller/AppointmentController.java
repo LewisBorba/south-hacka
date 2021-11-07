@@ -57,4 +57,20 @@ public class AppointmentController {
         List<Appointment> appointment = appointmentService.getAvailableAppointments(type);
         return appointment.stream().map(AppointmentResponse::of).collect(Collectors.toList());
     }
+
+    @GetMapping("/scheduled-appointments/{medicId}")
+    @ApiOperation("Endpoint that gets all scheduled appointments")
+    public List<AppointmentAcceptResponse> getScheduledAppointments(@RequestParam Integer medicId) {
+        List<Appointment> appointment = appointmentService.getScheduledAppointments(medicId);
+        return appointment.stream().map(AppointmentAcceptResponse::of).collect(Collectors.toList());
+    }
+
+    @DeleteMapping("/cancel-appointment/{appointmentId}")
+    @ApiOperation("Endpoint that cancel appointment")
+    public AppointmentAcceptResponse cancelAppointment(@RequestParam Integer appointmentId) {
+        Appointment appointment = appointmentService.cancelAppointment(appointmentId);
+        return AppointmentAcceptResponse.of(appointment);
+    }
+
+
 }

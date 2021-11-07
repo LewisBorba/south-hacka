@@ -54,8 +54,19 @@ public class AppointmentService {
         return appointmentRepository.findByPatientAndStatus(patient, Status.ACCEPTED);
     }
 
+    public List<Appointment> getScheduledAppointments(Integer medicId) {
+        Medic medic = medicService.findById(medicId);
+        return appointmentRepository.findByMedicAndStatus(medic, Status.ACCEPTED);
+    }
+
 
     public List<Appointment> getAvailableAppointments(String type) {
         return appointmentRepository.findByAppointmentTypeAndStatus(type, Status.REQUESTED);
+    }
+
+    public Appointment cancelAppointment(Integer appointmentId) {
+        Appointment appointment = this.findById(appointmentId);
+        appointment.cancel();
+        return appointmentRepository.save(appointment);
     }
 }
