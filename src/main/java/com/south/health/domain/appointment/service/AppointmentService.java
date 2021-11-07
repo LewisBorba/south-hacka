@@ -53,4 +53,9 @@ public class AppointmentService {
         Patient patient = patientService.findById(patiendId);
         return appointmentRepository.findByPatientAndStatus(patient, Status.ACCEPTED);
     }
+
+
+    public List<Appointment> getAvailableAppointments(String type) {
+        return appointmentRepository.findByAppointmentTypeAndStatus(type, Status.REQUESTED);
+    }
 }

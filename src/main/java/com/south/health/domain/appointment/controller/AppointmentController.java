@@ -49,4 +49,12 @@ public class AppointmentController {
         List<Appointment> appointment = appointmentService.getAcceptedAppointments(patientId);
         return appointment.stream().map(AppointmentAcceptResponse::of).collect(Collectors.toList());
     }
+
+
+    @GetMapping("/available-appointments")
+    @ApiOperation("Endpoint that gets all available appointments to accepts")
+    public List<AppointmentResponse> getAvailableAppointments(@RequestParam String type) {
+        List<Appointment> appointment = appointmentService.getAvailableAppointments(type);
+        return appointment.stream().map(AppointmentResponse::of).collect(Collectors.toList());
+    }
 }

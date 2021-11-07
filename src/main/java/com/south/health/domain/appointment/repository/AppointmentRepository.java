@@ -11,4 +11,7 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Integer> {
 
     List<Appointment> findByPatientAndStatus(Patient patient, Status status);
+
+    List<Appointment> findByAppointmentTypeAndStatus(String type, Status status);
+
 }
