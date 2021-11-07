@@ -1,5 +1,6 @@
 package com.south.health.domain.appointment.model;
 
+import com.south.health.domain.appointment.controller.request.AppointmentAcceptRequest;
 import com.south.health.domain.appointment.controller.request.AppointmentRequest;
 import com.south.health.domain.medic.model.Medic;
 import com.south.health.domain.patient.model.Patient;
@@ -35,6 +36,8 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name = "accepted_hour")
+    private String acceptedHour;
 
     /**
      * @deprecated (should be used only by frameworks)
@@ -47,7 +50,7 @@ public class Appointment {
         this.appointmentType = appointmentType;
         this.availableHours = availableHours;
         this.status = status;
-        this.patient =patient;
+        this.patient = patient;
     }
 
     public static Appointment of(AppointmentRequest appointmentRequest, Patient patient) {
@@ -81,5 +84,16 @@ public class Appointment {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void updateBy(AppointmentAcceptRequest appointmentAcceptRequest, Medic medic) {
+        this.medic = medic;
+        this.link = appointmentAcceptRequest.getLink();
+        this.acceptedHour = appointmentAcceptRequest.getAcceptedHour();
+        this.status = Status.ACCEPTED;
+    }
+
+    public String getAcceptedHour() {
+        return acceptedHour;
     }
 }

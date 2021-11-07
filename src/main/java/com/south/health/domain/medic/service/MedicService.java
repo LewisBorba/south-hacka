@@ -5,7 +5,10 @@ import com.south.health.domain.medic.model.Medic;
 import com.south.health.domain.medic.repository.MedicRepository;
 import com.south.health.domain.user.model.User;
 import com.south.health.domain.user.service.UserService;
+import com.south.health.domain.user.service.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class MedicService {
@@ -22,5 +25,10 @@ public class MedicService {
         User user = userService.save(User.of(medicRequest));
         return medicRepository.save(Medic.of(user, medicRequest));
 
+    }
+
+    public Medic findById(Integer medicId) {
+        Optional<Medic> medic = medicRepository.findById(medicId);
+        return medic.orElseThrow(UserNotFoundException::new);
     }
 }

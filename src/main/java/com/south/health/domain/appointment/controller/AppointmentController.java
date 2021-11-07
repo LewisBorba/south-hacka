@@ -1,14 +1,16 @@
 package com.south.health.domain.appointment.controller;
 
+import com.south.health.domain.appointment.controller.request.AppointmentAcceptRequest;
 import com.south.health.domain.appointment.controller.request.AppointmentRequest;
+import com.south.health.domain.appointment.controller.response.AppointmentAcceptResponse;
 import com.south.health.domain.appointment.controller.response.AppointmentResponse;
 import com.south.health.domain.appointment.model.Appointment;
 import com.south.health.domain.appointment.service.AppointmentService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/appointment")
@@ -20,10 +22,31 @@ public class AppointmentController {
     }
 
     @PostMapping
-    @ApiOperation(value ="Endpoint that request a appointment with a doctor")
+    @ApiOperation(value = "Endpoint that request a appointment with a doctor")
     public AppointmentResponse scheduleAppointment(@RequestBody AppointmentRequest appointmentRequest) {
         Appointment appointment = appointmentService.scheduleAppointment(appointmentRequest);
         return AppointmentResponse.of(appointment);
     }
 
+    @PutMapping("/{appointmentId}")
+    @ApiOperation(value = "Endpoint that accept a appointment with a patient")
+    public AppointmentAcceptResponse acceptAppointment(@RequestParam Integer appointmentId,
+                                                       @RequestBody AppointmentAcceptRequest appointmentAcceptRequest) {
+        Appointment appointment = appointmentService.acceptAppointment(appointmentAcceptRequest, appointmentId);
+        return AppointmentAcceptResponse.of(appointment);
+    }
+
+    @GetMapping("/requested-appointments/{patientId}")
+    @ApiOperation("Endpoint that gets a list of requested appointments")
+    public List<AppointmentResponse> getRequestedAppointments(@RequestParam Integer patientId) {
+        List<Appointment> appointment = appointmentService.getRequestedAppointments(patientId);
+        return appointment.stream().map(AppointmentResponse::of).collect(Collectors.toList());
+    }
+
+    @GetMapping("/accepted-appointments/{patientId}")
+    @ApiOperation("Endpoint that gets a list of accepted appointments")
+    public List<AppointmentAcceptResponse> getAcceptedAppointments(@RequestParam Integer patientId) {
+        List<Appointment> appointment = appointmentService.getAcceptedAppointments(patientId);
+        return appointment.stream().map(AppointmentAcceptResponse::of).collect(Collectors.toList());
+    }
 }
