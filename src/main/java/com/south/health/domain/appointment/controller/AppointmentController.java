@@ -51,7 +51,7 @@ public class AppointmentController {
     }
 
 
-    @GetMapping("/available-appointments")
+    @GetMapping("/available-appointments/{type}")
     @ApiOperation("Endpoint that gets all available appointments to accepts")
     public List<AppointmentResponse> getAvailableAppointments(@PathVariable String type) {
         List<Appointment> appointment = appointmentService.getAvailableAppointments(type);
