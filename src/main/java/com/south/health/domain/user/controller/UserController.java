@@ -1,12 +1,14 @@
 package com.south.health.domain.user.controller;
 
 import com.south.health.domain.user.controller.request.UserLoginRequest;
-import com.south.health.domain.user.controller.request.UserRequest;
 import com.south.health.domain.user.controller.response.UserResponse;
 import com.south.health.domain.user.model.User;
 import com.south.health.domain.user.service.UserService;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")

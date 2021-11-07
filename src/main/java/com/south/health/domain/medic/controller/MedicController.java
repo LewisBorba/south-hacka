@@ -7,7 +7,11 @@ import com.south.health.domain.medic.service.MedicService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/medic")
 public class MedicController {
     private final MedicService medicService;
 

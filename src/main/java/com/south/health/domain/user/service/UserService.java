@@ -1,7 +1,11 @@
 package com.south.health.domain.user.service;
 
+import com.south.health.domain.patient.model.Patient;
+import com.south.health.domain.patient.repository.PatientRepository;
+import com.south.health.domain.patient.service.PatientService;
 import com.south.health.domain.user.controller.request.UserLoginRequest;
 import com.south.health.domain.user.model.User;
+import com.south.health.domain.user.model.UserType;
 import com.south.health.domain.user.repository.UserRepository;
 import com.south.health.domain.user.service.exception.UserNotAuthorizedException;
 import com.south.health.domain.user.service.exception.UserNotFoundException;
@@ -12,9 +16,11 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PatientRepository patientRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PatientRepository patientRepository) {
         this.userRepository = userRepository;
+        this.patientRepository = patientRepository;
     }
 
     public User findUserById(Long userId) {
@@ -27,9 +33,13 @@ public class UserService {
     }
 
     public User login(UserLoginRequest userLoginRequest) {
-        Optional<User> user = userRepository.findByEmailAndPassword(userLoginRequest.getEmail(), userLoginRequest.getPassword());
-        return user.orElseThrow(UserNotAuthorizedException::new);
-
+        User user = userRepository.findByEmailAndPassword(userLoginRequest.getEmail(), userLoginRequest.getPassword())
+                .orElseThrow(UserNotAuthorizedException::new);
+        if (user.getType().equals(UserType.PATIENT)) {
+            Patient patient = patientRepository.findByUserId(user.getId());
+            user.setId(patient.getId());
+        }
+        return user;
     }
 
 }

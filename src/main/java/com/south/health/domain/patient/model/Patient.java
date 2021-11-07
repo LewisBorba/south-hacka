@@ -39,7 +39,6 @@ public class Patient {
     public static Patient of(User user) {
         if (user == null) return null;
         return new Patient(user);
-
     }
 
     public Integer getId() {
